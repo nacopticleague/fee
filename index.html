@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 NA Coptic League — Coordinator Fee Payment</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-y:auto;}
+body{font-family:'Source Sans 3',sans-serif;background:#fff;}
+
+/* ── Hero ── */
+.hero{background:#7d1a1a;padding:36px 20px 32px;text-align:center;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#c9b5a5,#e07878,#c9b5a5);}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:1.9rem;color:#e8b4b4;font-weight:800;line-height:1.3;}
+.hero .sub{font-size:.78rem;color:#c98a8a;margin-top:8px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+
+/* ── Intro ── */
+.intro{max-width:700px;margin:0 auto;padding:24px 20px 18px;text-align:center;border-bottom:6px solid #e8e8e8;}
+.intro-title{font-family:'Playfair Display',Georgia,serif;font-size:1.3rem;color:#333;font-weight:700;margin-bottom:6px;}
+.intro-hr{height:3px;background:#e07878;border:none;margin:10px auto 14px;max-width:120px;}
+.intro p{font-size:.95rem;color:#555;line-height:1.6;}
+.intro strong{color:#7d1a1a;font-weight:700;}
+
+/* ── Notice ── */
+.notice{padding:11px 16px;font-size:.78rem;font-weight:600;color:#5c1010;background:#e8ddd3;text-align:center;border-bottom:1px solid #d0bfaf;}
+
+/* ── Filters / Dropdowns ── */
+.selectors{background:#d8c8ba;border-bottom:2px solid #b8a492;padding:18px 16px;}
+.sel-row{display:flex;gap:12px;flex-wrap:wrap;max-width:700px;margin:0 auto;}
+.sg{flex:1;min-width:200px;}
+.sg label{display:block;font-size:.68rem;font-weight:700;color:#5c1010;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.sg select{width:100%;padding:11px 12px;border:2px solid #b8a492;border-radius:6px;font-size:.92rem;font-weight:600;color:#5c1010;background:#fff;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:border-color .2s, box-shadow .2s;}
+.sg select:focus{outline:none;border-color:#7d1a1a;box-shadow:0 0 0 3px rgba(125,26,26,.15);}
+.sg select:disabled{background:#f0e6dd;color:#9a8a78;cursor:not-allowed;border-color:#c9b5a5;}
+
+/* ── Result area ── */
+.result{max-width:700px;margin:0 auto;padding:22px 16px 30px;}
+
+/* Empty state */
+.empty{background:#fff;border-radius:10px;text-align:center;padding:42px 24px;box-shadow:0 2px 10px rgba(80,20,20,.08);border-left:4px solid #b8a492;}
+.empty .icon{font-size:2.2rem;margin-bottom:10px;}
+.empty h3{font-family:'Playfair Display',Georgia,serif;color:#7d1a1a;font-size:1.05rem;margin-bottom:6px;}
+.empty p{font-size:.88rem;color:#666;line-height:1.55;}
+
+/* Coordinator card */
+.coord-card{background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(80,20,20,.12);overflow:hidden;border-top:5px solid #7d1a1a;}
+.cc-head{padding:22px 24px 18px;border-bottom:1px solid #f0e6dd;}
+.cc-eyebrow{font-size:.68rem;font-weight:700;color:#7d1a1a;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px;}
+.cc-name{font-family:'Playfair Display',Georgia,serif;font-size:1.5rem;font-weight:700;color:#222;line-height:1.2;margin-bottom:4px;}
+.cc-church{font-size:.92rem;color:#555;line-height:1.4;}
+.cc-loc{display:inline-block;font-size:.74rem;color:#7d1a1a;background:#f5ede0;padding:2px 8px;border-radius:10px;margin-top:6px;font-weight:600;}
+
+.cc-stats{display:flex;border-bottom:1px solid #f0e6dd;}
+.cc-stat{flex:1;padding:14px 16px;text-align:center;}
+.cc-stat:not(:last-child){border-right:1px solid #f0e6dd;}
+.cc-stat-label{font-size:.65rem;font-weight:700;color:#888;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px;}
+.cc-stat-val{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-weight:800;color:#7d1a1a;line-height:1;}
+
+.cc-teams{padding:16px 24px 18px;border-bottom:1px solid #f0e6dd;}
+.cc-teams-label{font-size:.65rem;font-weight:700;color:#888;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+.cc-teams-list{display:flex;flex-wrap:wrap;gap:6px;}
+.team-tag{display:inline-block;font-size:.74rem;font-weight:700;padding:4px 9px;border-radius:5px;background:#f0e6dd;color:#7d1a1a;letter-spacing:.04em;}
+
+.cc-pay{padding:18px 24px 22px;text-align:center;}
+.pay-btn{display:block;background:#7d1a1a;color:#e8b4b4;padding:18px 24px;text-decoration:none;border-radius:8px;font-family:'Playfair Display',Georgia,serif;font-size:1.2rem;font-weight:800;line-height:1.3;transition:background .2s, transform .15s;border:none;width:100%;cursor:pointer;}
+.pay-btn:hover{background:#5c1010;}
+.pay-btn:active{transform:translateY(1px);}
+.pay-btn .arrow{display:inline-block;margin-left:6px;transition:transform .2s;}
+.pay-btn:hover .arrow{transform:translateX(4px);}
+.pay-method{font-size:.72rem;color:#888;margin-top:8px;letter-spacing:.08em;}
+.pay-method strong{color:#7d1a1a;}
+
+/* ── Footer ── */
+.footer-banner{background:#7d1a1a;padding:18px 20px;text-align:center;}
+.footer-banner .top{font-family:'Playfair Display',Georgia,serif;font-size:.95rem;color:#e8b4b4;font-weight:700;}
+.footer-banner .pub{font-size:.72rem;color:#c98a8a;margin-top:4px;letter-spacing:.1em;}
+
+@media(max-width:520px){
+  .hero h1{font-size:1.45rem;}
+  .intro{padding:20px 16px 14px;}
+  .intro-title{font-size:1.1rem;}
+  .sel-row{flex-direction:column;}
+  .sg{min-width:100%;}
+  .cc-head{padding:18px 18px 14px;}
+  .cc-name{font-size:1.25rem;}
+  .cc-stats{flex-wrap:wrap;}
+  .cc-stat{flex:1 1 50%;border-right:1px solid #f0e6dd !important;}
+  .cc-stat:nth-child(2){border-right:none !important;}
+  .cc-stat:last-child{flex:1 1 100%;border-right:none !important;border-top:1px solid #f0e6dd;}
+  .cc-teams{padding:14px 18px 16px;}
+  .cc-pay{padding:16px 18px 20px;}
+  .pay-btn{font-size:1.05rem;padding:16px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <h1>Welcome, Church<br>Coordinator</h1>
+  <div class="sub">2026 League Fee Payment · NA Coptic League</div>
+</div>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<div class="intro">
+  <div class="intro-title">Pay Your Church's League Fee</div>
+  <hr class="intro-hr">
+  <p>This page is for <strong>church coordinators</strong> only. Select your church and your name below — your team count, total fee, and secure payment link will appear.</p>
+</div>
+
+<div class="notice">⏰ Payment Deadline: Wednesday, May 13, 2026</div>
+
+<!-- ═══════════ DROPDOWNS ═══════════ -->
+<div class="selectors">
+  <div class="sel-row">
+    <div class="sg">
+      <label for="churchSel">Step 1 · Your Church</label>
+      <select id="churchSel">
+        <option value="">— Select your church —</option>
+      </select>
+    </div>
+    <div class="sg">
+      <label for="coordSel">Step 2 · Your Name</label>
+      <select id="coordSel" disabled>
+        <option value="">My Name [Church Coordinator]</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ RESULT ═══════════ -->
+<div class="result" id="result">
+  <div class="empty">
+    <div class="icon">🏀</div>
+    <h3>Select your church to begin</h3>
+    <p>Your team count, fee, and church payment link will appear here.</p>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER (removed) ═══════════ -->
+
+<script>
+/* ═══════════ DATA ═══════════ */
+var FALLBACK_LINK = 'https://nacopticleague.chmeetings.com/events/470D07EB2CD5E06D?lang=en';
+
+var COORDINATORS = [
+  { id:'4296911', first:'Andrew',  last:'Guindi',    church:'St. Mary & St. Pachomious Coptic Orthodox Church', loc:'Upstate, NY',     teams:['College','Girls','HS-NJ'], count:3, fee:2400, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=0574C6484ACC4AC1' },
+  { id:'4295937', first:'Amir',    last:'Gamel',     church:'St. Mary of Zeitoun Coptic Orthodox Church',       loc:'Todt Hill, NY',   teams:['Girls'], count:1, fee:800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=6A0D220681C70733' },
+  { id:'4301149', first:'Andrew',  last:'Rizk',      nickname:'Drew', church:'St. Augustine and St. Monica Coptic Orthodox Church', loc:'Summit, NJ',   teams:['JHS','Mens'], count:2, fee:1600, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=46D4E2F9B7406862' },
+  { id:'4295989', first:'Arsany',  last:'Beshara',   church:'St. Mary & St. Mercurius Coptic Orthodox Church',  loc:'Belleville, NJ',  teams:['Girls','HS-NJ'], count:2, fee:1600, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=8533BB4DCF618D4B' },
+  { id:'4347166', first:'Ashraf',  last:'Aweeda',    church:'St. Mary & St. Antonious Coptic Orthodox Church',  loc:'Queens, NY',      teams:['College','Girls','HS-NY','JHS','Mens'], count:5, fee:4000, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=5DB1F29AF103517A' },
+  { id:'4296115', first:'Eddie',   last:'Ishak',     church:'St. Mina Coptic Orthodox Church',                   loc:'Holmdel, NJ',     teams:['College','Girls','HS-NJ','JHS','Mens'], count:5, fee:4000, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=49BB27470A73CBAF' },
+  { id:'4341116', first:'Samuel',  last:'Fahmy',     church:'St. George Coptic Orthodox Church',                 loc:'Astoria, NY',     teams:['Girls','HS-NY','JHS'], count:3, fee:2400, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=3AF928F04D9FD02E' },
+  { id:'4311392', first:'Jonathan',last:'Gebrail',   nickname:'Jonny', church:'St. Mark Coptic Orthodox Church',                   loc:'West Side, NJ',   teams:['HS-NJ','JHS'], count:2, fee:1600, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=0CFBB49BEB504D04' },
+  { id:'4349029', first:'Karim',   last:'Waheeb',    church:'Pope Kyrillos & Archdeacon Habib Girgis Coptic Orthodox Church', loc:'Paramus, NJ', teams:['HS-NJ'], count:1, fee:800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=20D2091DB0079D1D' },
+  { id:'4345170', first:'Kyrlous', last:'Youssef',   church:'Archangel Michael & St. Mena Coptic Orthodox Church', loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=4AC958892969B305' },
+  { id:'4296128', first:'Kyro',    last:'Nakhla',    church:'St. Moses & St. Abraam Coptic Orthodox Church',     loc:'Piscataway, NJ',  teams:['College','HS-NJ'], count:2, fee:1600, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=8A3E43DFEA813F2E' },
+  { id:'4296464', first:'Sherif',  last:'Fawzy',     church:'St. Mary Coptic Orthodox Church',                   loc:'East Brunswick, NJ', teams:['Mens','College #1','Girls #1','HS-NJ #1','JHS #1','College #2','Girls #2','HS-NJ #2','JHS #2','College #3','HS-NJ #3'], count:11, fee:8800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=A2630E6325FF1CCA' },
+  { id:'4296869', first:'Mina',    last:'Beshai',    church:'St. Mary & St. George Coptic Orthodox Church',      loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=B7CF7DBC6117EE4F' },
+  { id:'4321859', first:'Mena',    last:'Raafat',    church:'St. Mary & St. John the Beloved Coptic Orthodox Church', loc:'Bayonne, NJ', teams:['College','JHS','HS-NJ #1','HS-NJ #2'], count:4, fee:3200, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=7C64E7698A42A7E9' },
+  { id:'4299238', first:'Mousa',   last:'Youssef',   church:'St. Abraam Coptic Orthodox Church',                 loc:'Long Island, NY', teams:['College','Mens','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=503DD345350CE6C2' },
+  { id:'4330604', first:'Peter',   last:'Mikhaeil',  church:'St. Mary & St. Kyrillos Coptic Orthodox Church',    loc:'Hatfield, PA',    teams:['Mens'], count:1, fee:800,  link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=E6129C9E50F3A3EA' },
+  { id:'4296103', first:'Phyl',    last:'Khalil',    church:'St. George Coptic Orthodox Church',                 loc:'Philadelphia, PA',teams:['College','HS-NJ','JHS'], count:3, fee:2400, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=7BE621CDE23205FB' },
+  { id:'4295947', first:'Sylvia',  last:'Awadalla',  church:'St. Abanoub & St. Antonious Coptic Orthodox Church', loc:'Bayonne, NJ',    teams:['College','Girls','JHS','Mens','HS-NJ #1','HS-NJ #2'], count:6, fee:4800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=EED86579A68CC8AB' },
+  { id:'4296867', first:'Steven',  last:'Safa',      church:'St. George Coptic Orthodox Church',                 loc:'Brooklyn, NY',    teams:['College','Girls','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=E6A3C7327A88EE27' },
+  { id:'4295939', first:'Marynet', last:'Shafik',    church:'St. Mark Coptic Orthodox Church',                   loc:'Makkar, NJ',      teams:['Girls','HS-NJ','JHS'], count:3, fee:2400, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=49238F59992C691E' }
+];
+
+/* ═══════════ HELPERS ═══════════ */
+function fmtMoney(n){ return '$' + n.toLocaleString('en-US'); }
+function churchLabel(c){ return c.church + ' (' + c.loc + ')'; }
+function coordLabel(c){
+  return c.nickname
+    ? c.first + ' "' + c.nickname + '" ' + c.last
+    : c.first + ' ' + c.last;
+}
+
+/* ═══════════ POPULATE CHURCH DROPDOWN (alphabetical, with location for disambiguation) ═══════════ */
+(function(){
+  var sel = document.getElementById('churchSel');
+  var sorted = COORDINATORS.slice().sort(function(a,b){
+    var la = churchLabel(a).toLowerCase();
+    var lb = churchLabel(b).toLowerCase();
+    return la < lb ? -1 : la > lb ? 1 : 0;
+  });
+  sorted.forEach(function(c){
+    var o = document.createElement('option');
+    o.value = c.id;
+    o.text = churchLabel(c);
+    sel.appendChild(o);
+  });
+})();
+
+/* ═══════════ HANDLERS ═══════════ */
+var churchSel = document.getElementById('churchSel');
+var coordSel = document.getElementById('coordSel');
+var resultEl = document.getElementById('result');
+
+function findById(id){
+  for (var i = 0; i < COORDINATORS.length; i++){
+    if (COORDINATORS[i].id === id) return COORDINATORS[i];
+  }
+  return null;
+}
+
+function resetCoordSel(){
+  coordSel.innerHTML = '<option value="">My Name [Church Coordinator]</option>';
+  coordSel.disabled = true;
+}
+
+function showEmpty(msg, sub){
+  resultEl.innerHTML = '<div class="empty"><div class="icon">🏀</div><h3>' + msg + '</h3><p>' + sub + '</p></div>';
+}
+
+function showCoord(c){
+  var teamsHtml = c.teams.map(function(t){ return '<span class="team-tag">' + t + '</span>'; }).join('');
+  var payHref = c.link || FALLBACK_LINK;
+  var btnLabel = 'Pay ' + fmtMoney(c.fee) + ' Now';
+  var methodNote = '<span>Secure payment · <strong>ChMeetings</strong></span>';
+
+  resultEl.innerHTML =
+    '<div class="coord-card">' +
+      '<div class="cc-head">' +
+        '<div class="cc-eyebrow">Coordinator</div>' +
+        '<div class="cc-name">' + coordLabel(c) + '</div>' +
+        '<div class="cc-church">' + c.church + '</div>' +
+        '<div class="cc-loc">' + c.loc + '</div>' +
+      '</div>' +
+      '<div class="cc-stats">' +
+        '<div class="cc-stat"><div class="cc-stat-label">Teams</div><div class="cc-stat-val">' + c.count + '</div></div>' +
+        '<div class="cc-stat"><div class="cc-stat-label">Per Team</div><div class="cc-stat-val">$800</div></div>' +
+        '<div class="cc-stat"><div class="cc-stat-label">Total Fee</div><div class="cc-stat-val">' + fmtMoney(c.fee) + '</div></div>' +
+      '</div>' +
+      '<div class="cc-teams">' +
+        '<div class="cc-teams-label">Registered Teams</div>' +
+        '<div class="cc-teams-list">' + teamsHtml + '</div>' +
+      '</div>' +
+      '<div class="cc-pay">' +
+        '<a class="pay-btn" href="' + payHref + '" target="_blank" rel="noopener">' + btnLabel + '<span class="arrow">→</span></a>' +
+        '<div class="pay-method">' + methodNote + '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+churchSel.addEventListener('change', function(){
+  var id = churchSel.value;
+  if (!id){
+    resetCoordSel();
+    showEmpty('Select your church above', 'Your coordinator info, fee, and payment link will appear here.');
+    return;
+  }
+  var c = findById(id);
+  if (!c) return;
+  // Populate coordinator dropdown (1 option per church in current data)
+  coordSel.innerHTML = '<option value="">My Name [Church Coordinator]</option>';
+  var o = document.createElement('option');
+  o.value = c.id;
+  o.text = coordLabel(c);
+  coordSel.appendChild(o);
+  coordSel.disabled = false;
+  showEmpty('Now select your name', 'Choose your name in Step 2 to see your payment details.');
+});
+
+coordSel.addEventListener('change', function(){
+  var id = coordSel.value;
+  if (!id){
+    showEmpty('Now select your name', 'Choose your name in Step 2 to see your payment details.');
+    return;
+  }
+  var c = findById(id);
+  if (c) showCoord(c);
+});
+
+/* ═══════════ Iframe auto-resize ═══════════ */
+function broadcastHeight(){
+  window.parent.postMessage({ type:'resize', height:document.body.scrollHeight }, '*');
+}
+window.addEventListener('load', broadcastHeight);
+new MutationObserver(broadcastHeight).observe(document.body, { childList:true, subtree:true });
+setInterval(broadcastHeight, 500);
+</script>
+</body>
+</html>
