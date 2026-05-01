@@ -99,32 +99,26 @@ body{font-family:'Source Sans 3',sans-serif;background:#fff;}
 
 <!-- ═══════════ HERO ═══════════ -->
 <div class="hero">
-  <h1>Welcome, Church<br>Coordinator</h1>
-  <div class="sub">2026 League Fee Payment · NA Coptic League</div>
+  <h1>2026 League Fee<br>Payment</h1>
+  <div class="sub">NA Coptic League · Season 2026</div>
 </div>
 
 <!-- ═══════════ INTRO ═══════════ -->
 <div class="intro">
   <div class="intro-title">Pay Your Church's League Fee</div>
   <hr class="intro-hr">
-  <p>This page is for <strong>church coordinators</strong> only. Select your church and your name below — your team count, total fee, and secure payment link will appear.</p>
+  <p>This page is for <strong>church coordinators</strong> only. Select your church below — your team count, total fee, and secure payment link will appear.</p>
 </div>
 
 <div class="notice">⏰ Payment Deadline: Wednesday, May 13, 2026</div>
 
-<!-- ═══════════ DROPDOWNS ═══════════ -->
+<!-- ═══════════ DROPDOWN ═══════════ -->
 <div class="selectors">
   <div class="sel-row">
     <div class="sg">
-      <label for="churchSel">Step 1 · Your Church</label>
+      <label for="churchSel">Select Your Church</label>
       <select id="churchSel">
         <option value="">— Select your church —</option>
-      </select>
-    </div>
-    <div class="sg">
-      <label for="coordSel">Step 2 · Your Name</label>
-      <select id="coordSel" disabled>
-        <option value="">My Name [Church Coordinator]</option>
       </select>
     </div>
   </div>
@@ -195,7 +189,6 @@ function coordLabel(c){
 
 /* ═══════════ HANDLERS ═══════════ */
 var churchSel = document.getElementById('churchSel');
-var coordSel = document.getElementById('coordSel');
 var resultEl = document.getElementById('result');
 
 function findById(id){
@@ -205,25 +198,22 @@ function findById(id){
   return null;
 }
 
-function resetCoordSel(){
-  coordSel.innerHTML = '<option value="">My Name [Church Coordinator]</option>';
-  coordSel.disabled = true;
-}
-
 function showEmpty(msg, sub){
   resultEl.innerHTML = '<div class="empty"><div class="icon">🏀</div><h3>' + msg + '</h3><p>' + sub + '</p></div>';
 }
 
 function showCoord(c){
-  var teamsHtml = c.teams.map(function(t){ return '<span class="team-tag">' + t + '</span>'; }).join('');
+  var teamsHtml = c.teams.map(function(t){
+    var label = t.replace(/\s*#(\d+)/g, ' ($1)');
+    return '<span class="team-tag">' + label + '</span>';
+  }).join('');
   var payHref = c.link || FALLBACK_LINK;
   var btnLabel = 'Pay ' + fmtMoney(c.fee) + ' Now';
-  var methodNote = '<span>Secure payment · <strong>ChMeetings</strong></span>';
 
   resultEl.innerHTML =
     '<div class="coord-card">' +
       '<div class="cc-head">' +
-        '<div class="cc-eyebrow">Coordinator</div>' +
+        '<div class="cc-eyebrow">2026 Season League Fee</div>' +
         '<div class="cc-name">' + coordLabel(c) + '</div>' +
         '<div class="cc-church">' + c.church + '</div>' +
         '<div class="cc-loc">' + c.loc + '</div>' +
@@ -239,7 +229,6 @@ function showCoord(c){
       '</div>' +
       '<div class="cc-pay">' +
         '<a class="pay-btn" href="' + payHref + '" target="_blank" rel="noopener">' + btnLabel + '<span class="arrow">→</span></a>' +
-        '<div class="pay-method">' + methodNote + '</div>' +
       '</div>' +
     '</div>';
 }
@@ -247,26 +236,7 @@ function showCoord(c){
 churchSel.addEventListener('change', function(){
   var id = churchSel.value;
   if (!id){
-    resetCoordSel();
-    showEmpty('Select your church above', 'Your coordinator info, fee, and payment link will appear here.');
-    return;
-  }
-  var c = findById(id);
-  if (!c) return;
-  // Populate coordinator dropdown (1 option per church in current data)
-  coordSel.innerHTML = '<option value="">My Name [Church Coordinator]</option>';
-  var o = document.createElement('option');
-  o.value = c.id;
-  o.text = coordLabel(c);
-  coordSel.appendChild(o);
-  coordSel.disabled = false;
-  showEmpty('Now select your name', 'Choose your name in Step 2 to see your payment details.');
-});
-
-coordSel.addEventListener('change', function(){
-  var id = coordSel.value;
-  if (!id){
-    showEmpty('Now select your name', 'Choose your name in Step 2 to see your payment details.');
+    showEmpty('Select your church to begin', 'Your team count, fee, and church payment link will appear here.');
     return;
   }
   var c = findById(id);
