@@ -72,6 +72,11 @@ body{font-family:'Source Sans 3',sans-serif;background:#fff;}
 .pay-method{font-size:.72rem;color:#888;margin-top:8px;letter-spacing:.08em;}
 .pay-method strong{color:#7d1a1a;}
 
+/* No-link contact note (replaces pay button) */
+.contact-note{background:#f5ede0;border:2px solid #d0bfaf;border-radius:8px;padding:18px 20px;text-align:center;}
+.contact-note .cn-title{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;font-weight:700;color:#7d1a1a;margin-bottom:6px;}
+.contact-note .cn-body{font-size:.9rem;color:#5c1010;line-height:1.5;}
+
 /* ── Footer ── */
 .footer-banner{background:#7d1a1a;padding:18px 20px;text-align:center;}
 .footer-banner .top{font-family:'Playfair Display',Georgia,serif;font-size:.95rem;color:#e8b4b4;font-weight:700;}
@@ -143,14 +148,14 @@ var COORDINATORS = [
   { id:'4296911', first:'Andrew',  last:'Guindi',    church:'St. Mary & St. Pachomious Coptic Orthodox Church', loc:'Upstate, NY',     teams:['College','Girls','HS-NJ'], count:3, fee:2400, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=656D6CF050AD02BA' },
   { id:'4295937', first:'Amir',    last:'Gamel',     church:'St. Mary of Zeitoun Coptic Orthodox Church',       loc:'Todt Hill, NY',   teams:['Girls'], count:1, fee:800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=33A426C30427BE0D' },
   { id:'4301149', first:'Andrew',  last:'Rizk',      nickname:'Drew', church:'St. Augustine and St. Monica Coptic Orthodox Church', loc:'Summit, NJ',   teams:['JHS','Mens'], count:2, fee:1600, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=06C20645FC6FD8CB' },
-  { id:'4295989', first:'Arsany',  last:'Beshara',   church:'St. Mary & St. Mercurius Coptic Orthodox Church',  loc:'Belleville, NJ',  teams:['Girls'], count:1, fee:800, link:'https://nacopticleague.chmeetings.com/BE9D477537C5AF0F/event/02E68FEDF70CD31A?bookingId=0836508FEC3BABC5' },
+  { id:'4295989', first:'Arsany',  last:'Beshara',   church:'St. Mary & St. Mercurius Coptic Orthodox Church',  loc:'Belleville, NJ',  teams:['Girls'], count:1, fee:800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=0836508FEC3BABC5' },
   { id:'4347166', first:'Ashraf',  last:'Aweeda',    church:'St. Mary & St. Antonious Coptic Orthodox Church',  loc:'Queens, NY',      teams:['College','Girls','HS-NY','JHS','Mens'], count:5, fee:4000, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=159D540B9434FBEE' },
   { id:'4296115', first:'Eddie',   last:'Ishak',     church:'St. Mina Coptic Orthodox Church',                   loc:'Holmdel, NJ',     teams:['College','Girls','HS-NJ','JHS','Mens'], count:5, fee:4000, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=68DFA43DCB8AD1E1' },
   { id:'4341116', first:'Samuel',  last:'Fahmy',     church:'St. George Coptic Orthodox Church',                 loc:'Astoria, NY',     teams:['Girls','HS-NY','JHS'], count:3, fee:2400, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=BD6B530FB6148B22' },
   { id:'4311392', first:'Jonathan',last:'Gebrail',   nickname:'Jonny', church:'St. Mark Coptic Orthodox Church',                   loc:'West Side, NJ',   teams:['HS-NJ','JHS'], count:2, fee:1600, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=F8A7724A089B4C57' },
   { id:'4349029', first:'Karim',   last:'Waheeb',    church:'Pope Kyrillos & Archdeacon Habib Girgis Coptic Orthodox Church', loc:'Paramus, NJ', teams:['HS-NJ'], count:1, fee:800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=A6424A49BEDF30E7' },
   { id:'4345170', first:'Kyrlous', last:'Youssef',   church:'Archangel Michael & St. Mena Coptic Orthodox Church', loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=435DC814A2BBAF02' },
-  { id:'4296128', first:'Kyro',    last:'Nakhla',    church:'St. Moses & St. Abraam Coptic Orthodox Church',     loc:'Piscataway, NJ',  teams:['College','HS-NJ'], count:2, fee:1600, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=22852CB1AEB0062F' },
+  { id:'4296128', first:'Kyro',    last:'Nakhla',    church:'St. Moses & St. Abraam Coptic Orthodox Church',     loc:'Piscataway, NJ',  teams:['College','HS-NJ'], count:2, fee:1600, link:null },
   { id:'4296464', first:'Sherif',  last:'Fawzy',     church:'St. Mary Coptic Orthodox Church',                   loc:'East Brunswick, NJ', teams:['Mens','College #1','Girls #1','HS-NJ #1','JHS #1','College #2','Girls #2','HS-NJ #2','JHS #2','College #3','HS-NJ #3'], count:11, fee:8800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=B122965FFC776E30' },
   { id:'4296869', first:'Mina',    last:'Beshai',    church:'St. Mary & St. George Coptic Orthodox Church',      loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=262BCD9D90F09201' },
   { id:'4321859', first:'Mena',    last:'Raafat',    church:'St. Mary & St. John the Beloved Coptic Orthodox Church', loc:'Bayonne, NJ', teams:['College','JHS','HS-NJ #1','HS-NJ #2'], count:4, fee:3200, link:'https://nacopticleague.chmeetings.com/event/02E68FEDF70CD31A?bookingId=8F8F74C0ABD1507C' },
@@ -207,8 +212,23 @@ function showCoord(c){
     var label = t.replace(/\s*#(\d+)/g, ' ($1)');
     return '<span class="team-tag">' + label + '</span>';
   }).join('');
-  var payHref = c.link || FALLBACK_LINK;
-  var btnLabel = 'Pay ' + fmtMoney(c.fee) + ' Now';
+
+  var payBlock;
+  if (c.link){
+    var btnLabel = 'Pay ' + fmtMoney(c.fee) + ' Now';
+    payBlock =
+      '<div class="cc-pay">' +
+        '<a class="pay-btn" href="' + c.link + '" target="_blank" rel="noopener">' + btnLabel + '<span class="arrow">→</span></a>' +
+      '</div>';
+  } else {
+    payBlock =
+      '<div class="cc-pay">' +
+        '<div class="contact-note">' +
+          '<div class="cn-title">Please Contact the League</div>' +
+          '<div class="cn-body">A payment link is not available for your church online. Please contact the league directly to arrange payment of your ' + fmtMoney(c.fee) + ' fee.</div>' +
+        '</div>' +
+      '</div>';
+  }
 
   resultEl.innerHTML =
     '<div class="coord-card">' +
@@ -227,9 +247,7 @@ function showCoord(c){
         '<div class="cc-teams-label">Registered Teams</div>' +
         '<div class="cc-teams-list">' + teamsHtml + '</div>' +
       '</div>' +
-      '<div class="cc-pay">' +
-        '<a class="pay-btn" href="' + payHref + '" target="_blank" rel="noopener">' + btnLabel + '<span class="arrow">→</span></a>' +
-      '</div>' +
+      payBlock +
     '</div>';
 }
 
