@@ -76,15 +76,31 @@ body{font-family:Arial,sans-serif;background:#fff;}
 .paid-note .pn-title{font-family:Arial,sans-serif;font-size:1.1rem;font-weight:700;color:#1f6b3a;margin-bottom:4px;}
 .paid-note .pn-body{font-size:.9rem;color:#2d4a35;line-height:1.5;}
 
+/* Partial-payment state */
+.partial-note{background:#fff4e6;border:2px solid #f0c97a;border-radius:8px;padding:14px 18px;text-align:center;margin-bottom:14px;}
+.partial-note .ptn-title{font-family:Arial,sans-serif;font-size:1rem;font-weight:700;color:#8a5a00;margin-bottom:4px;}
+.partial-note .ptn-body{font-size:.88rem;color:#5a3d00;line-height:1.5;}
+.partial-note .ptn-body strong{color:#8a5a00;}
+
 /* No-link contact note (replaces pay button) */
 .contact-note{background:#f5ede0;border:2px solid #d0bfaf;border-radius:8px;padding:18px 20px;text-align:center;}
 .contact-note .cn-title{font-family:Arial,sans-serif;font-size:1.05rem;font-weight:700;color:#7d1a1a;margin-bottom:6px;}
 .contact-note .cn-body{font-size:.9rem;color:#5c1010;line-height:1.5;}
 
-/* ── Footer ── */
-.footer-banner{background:#7d1a1a;padding:18px 20px;text-align:center;}
-.footer-banner .top{font-family:Arial,sans-serif;font-size:.95rem;color:#e8b4b4;font-weight:700;}
-.footer-banner .pub{font-size:.72rem;color:#c98a8a;margin-top:4px;letter-spacing:.1em;}
+/* Fee notice */
+.fee-notice{display:flex;gap:10px;align-items:center;background:#faf6f1;border:1px solid #d0bfaf;border-radius:8px;padding:12px 14px;margin-bottom:14px;text-align:left;}
+.fee-notice .fn-icon{font-size:1.3rem;flex-shrink:0;line-height:1;}
+.fee-notice .fn-body{font-size:.82rem;color:#5c4a35;line-height:1.4;}
+.fee-notice .fn-body strong{color:#7d1a1a;}
+
+/* Payment method selector */
+.pm-label{font-size:.65rem;font-weight:700;color:#888;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;text-align:left;}
+.pay-methods{display:flex;gap:8px;margin-bottom:14px;}
+.pm-opt{flex:1;background:#fff;border:2px solid #d0bfaf;border-radius:8px;padding:12px 10px;cursor:pointer;transition:border-color .15s, background .15s, box-shadow .15s;text-align:center;font-family:Arial,sans-serif;}
+.pm-opt:hover{border-color:#b8a492;background:#faf6f1;}
+.pm-active{border-color:#7d1a1a !important;background:#f5ede0 !important;box-shadow:0 0 0 3px rgba(125,26,26,.1);}
+.pm-title{font-size:.88rem;font-weight:700;color:#5c1010;line-height:1.2;}
+.pm-sub{font-size:.66rem;color:#888;margin-top:4px;line-height:1.3;}
 
 @media(max-width:520px){
   .hero h1{font-size:1.45rem;}
@@ -101,6 +117,8 @@ body{font-family:Arial,sans-serif;background:#fff;}
   .cc-teams{padding:14px 18px 16px;}
   .cc-pay{padding:16px 18px 20px;}
   .pay-btn{font-size:1.05rem;padding:16px 20px;}
+  .pay-methods{flex-direction:column;}
+  .pm-sub{font-size:.7rem;}
 }
 </style>
 </head>
@@ -142,34 +160,36 @@ body{font-family:Arial,sans-serif;background:#fff;}
   </div>
 </div>
 
-<!-- ═══════════ FOOTER (removed) ═══════════ -->
-
 <script>
 /* ═══════════ DATA ═══════════ */
-var FALLBACK_LINK = 'https://nacopticleague.chmeetings.com/events/470D07EB2CD5E06D?lang=en';
-
 var COORDINATORS = [
-  { id:'4296911', first:'Andrew',  last:'Guindi',    church:'St. Mary & St. Pachomious Coptic Orthodox Church', loc:'Upstate, NY',     teams:['College','Girls','HS-NJ'], count:3, fee:2400, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxY0JkcmpDVjZidDJvN3VDTktvVm9iN3lYaTZkLDE2ODM5OTU5NA0200X86zwVcN?s=db' },
-  { id:'4295937', first:'Amir',    last:'Gamel',     church:'St. Mary of Zeitoun Coptic Orthodox Church',       loc:'Todt Hill, NY',   teams:['Girls'], count:1, fee:800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxdVdVaWdXN0Y1YTZRRGp2TUh1T0dpbGlZY0ZpLDE2ODM5OTY1NA0200krDyMX8i?s=db' },
-  { id:'4301149', first:'Andrew',  last:'Rizk',      nickname:'Drew', church:'St. Augustine and St. Monica Coptic Orthodox Church', loc:'Summit, NJ',   teams:['JHS','Mens'], count:2, fee:1600, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxMXE5TE83eEZpeENpMjJQU0NGa1BnVm5SR1VSLDE2ODM5OTY0NA02005vtCmwbx?s=db' },
-  { id:'4295989', first:'Arsany',  last:'Beshara',   church:'St. Mary & St. Mercurius Coptic Orthodox Church',  loc:'Belleville, NJ',  teams:['Girls'], count:1, fee:800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxckxPbWFpcUJVbVFpSmR4TUMwWWR0SjB2OGs4LDE2ODM5OTYxMg0200YealnXoa?s=db' },
-  { id:'4347166', first:'Ashraf',  last:'Aweeda',    church:'St. Mary & St. Antonious Coptic Orthodox Church',  loc:'Queens, NY',      teams:['College','Girls','HS-NY','JHS','Mens'], count:5, fee:4000, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxZ3ZoVno0ZUlPRlBKVVFjeDdGUnpVdmFyMU5XLDE2ODM5OTU3OQ0200r6614QIU?s=db' },
-  { id:'4296115', first:'Eddie',   last:'Ishak',     church:'St. Mina Coptic Orthodox Church',                   loc:'Holmdel, NJ',     teams:['College','Girls','HS-NJ','JHS','Mens'], count:5, fee:4000, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxNnJNSk5QRnFIbVZQQWN2ZXIwbjRBVnhqekVhLDE2ODM5OTQ3NA0200qLGzd8du?s=db' },
-  { id:'4341116', first:'Samuel',  last:'Fahmy',     church:'St. George Coptic Orthodox Church',                 loc:'Astoria, NY',     teams:['Girls','HS-NY','JHS'], count:3, fee:2400, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxdk1wdkkzMWROWlF5aWJNUWgwaDZkWGFHa21xLDE2ODM5OTQ5Ng0200HmuM8rNk?s=db' },
-  { id:'4311392', first:'Jonathan',last:'Gebrail',   nickname:'Jonny', church:'St. Mark Coptic Orthodox Church',                   loc:'West Side, NJ',   teams:['HS-NJ','JHS'], count:2, fee:1600, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxOTJOeFF1d05WVDFpUk1Mcm5ycmxmZlJzdzdELDE2ODM5OTU1NA02005Ap4Kn03?s=db' },
-  { id:'4349029', first:'Karim',   last:'Waheeb',    church:'Pope Kyrillos & Archdeacon Habib Girgis Coptic Orthodox Church', loc:'Paramus, NJ', teams:['HS-NJ'], count:1, fee:800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxQ2pnczdWbnRkTFc2OFljVG84Q2c5SjZHOExXLDE2ODM5OTUyMA0200ayZkMt12?s=db' },
-  { id:'4345170', first:'Kyrlous', last:'Youssef',   church:'Archangel Michael & St. Mena Coptic Orthodox Church', loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxY0J4UlFCT1p5VE5NbDVDUzVnR3F1ajJ6dWZMLDE2ODM5OTUzOQ0200XWeBpvFL?s=db' },
+  /* ── UNPAID (updated Stripe links) ── */
+  { id:'4296911', first:'Andrew',  last:'Guindi',    church:'St. Mary & St. Pachomious Coptic Orthodox Church', loc:'Upstate, NY',     teams:['College','Girls','HS-NJ'], count:3, fee:2400, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxjcGQ4OW12QUVQVTFGalBkbU5UQURNNHdCTWJSLDE2OTI0NzYyMQ0200ZRm2Cl3G?s=db' },
+  { id:'4295937', first:'Amir',    last:'Gamel',     church:'St. Mary of Zeitoun Coptic Orthodox Church',       loc:'Todt Hill, NY',   teams:['Girls'], count:1, fee:800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxoS2JtdGd1aFR5cWF6RkM4c0FocEprUnR1RFpTLDE2OTI0NzkxMQ0200Z0UoFEXJ?s=db' },
+  { id:'4301149', first:'Andrew',  last:'Rizk',      nickname:'Drew', church:'St. Augustine and St. Monica Coptic Orthodox Church', loc:'Summit, NJ',   teams:['JHS','Mens'], count:2, fee:1600, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxnRFhHSWZYTTFEUUFFM2JxeXdzejlseTQ0NEhuLDE2OTI0Nzg2NA0200ty0MFb4C?s=db' },
+  { id:'4295989', first:'Arsany',  last:'Beshara',   church:'St. Mary & St. Mercurius Coptic Orthodox Church',  loc:'Belleville, NJ',  teams:['Girls'], count:1, fee:800, paid:true },
+  { id:'4347166', first:'Ashraf',  last:'Aweeda',    church:'St. Mary & St. Antonious Coptic Orthodox Church',  loc:'Queens, NY',      teams:['College','Girls','HS-NY','JHS','Mens'], count:5, fee:4000, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxZSDIzdXl4N1VwYWhZWUZrRUo5c3JRMFNqeWpmLDE2OTI0NzM3NQ0200OPmPy561?s=db' },
+  { id:'4341116', first:'Samuel',  last:'Fahmy',     church:'St. George Coptic Orthodox Church',                 loc:'Astoria, NY',     teams:['Girls','HS-NY','JHS'], count:3, fee:2400, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxXVThSMzJSN2ZZUEJyUXE1TENTYWZLMUFWZkJPLDE2OTI0NzI5MA0200elL4enTu?s=db' },
+  { id:'4311392', first:'Jonathan',last:'Gebrail',   nickname:'Jonny', church:'St. Mark Coptic Orthodox Church',                   loc:'West Side, NJ',   teams:['HS-NJ','JHS'], count:2, fee:1600, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxWRFRSRWoyNFRaMUFQZ1lJaHQ5SGJaaHNsZzVmLDE2OTI0NzE5OA0200IS05gA67?s=db' },
+  { id:'4345170', first:'Kyrlous', last:'Youssef',   church:'Archangel Michael & St. Mena Coptic Orthodox Church', loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, paidAmount:800, outstanding:4000, paidTeam:'Mens', link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxNekFaRTJRMWxTZlFkYmhvck1ZS296dzFpaTN2LDE2OTI0Njc1MQ0200ieb1CIZu?s=db' },
+  { id:'4321859', first:'Mena',    last:'Raafat',    church:'St. Mary & St. John the Beloved Coptic Orthodox Church', loc:'Bayonne, NJ', teams:['College','JHS','HS-NJ #1','HS-NJ #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxUUUVrUVU5OHRjZ0pkZ2ZlTmVxOGpCMlR4THdMLDE2OTI0NzA5NA02008vbspZTZ?s=db' },
+  { id:'4299238', first:'Mousa',   last:'Youssef',   church:'St. Abraam Coptic Orthodox Church',                 loc:'Long Island, NY', teams:['College','Mens','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxSMlBMcGtmM1JzQmRBU2hSUTJwR3I5cHZDaUZhLDE2OTI0NzAyMA0200lopSNtKr?s=db' },
+  { id:'4296867', first:'Steven',  last:'Safa',      church:'St. George Coptic Orthodox Church',                 loc:'Brooklyn, NY',    teams:['College','Girls','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmw4U1ZpR3F1MjZoS1VLcFd0dzNsUEt4b0dFdFdMLDE2OTI0NjQ3Ng0200Fy9PmQkU?s=db' },
+
+  /* ── PAID ── */
+  { id:'4296115', first:'Eddie',   last:'Ishak',     church:'St. Mina Coptic Orthodox Church',                   loc:'Holmdel, NJ',     teams:['College','Girls','HS-NJ','JHS','Mens'], count:5, fee:4000, paid:true },
+  { id:'4349029', first:'Karim',   last:'Waheeb',    church:'Pope Kyrillos & Archdeacon Habib Girgis Coptic Orthodox Church', loc:'Paramus, NJ', teams:['HS-NJ'], count:1, fee:800, paid:true },
   { id:'4296128', first:'Kyro',    last:'Nakhla',    church:'St. Moses & St. Abraam Coptic Orthodox Church',     loc:'Piscataway, NJ',  teams:['College','HS-NJ'], count:2, fee:1600, paid:true },
-  { id:'4296464', first:'Sherif',  last:'Fawzy',     church:'St. Mary Coptic Orthodox Church',                   loc:'East Brunswick, NJ', teams:['Mens','College #1','Girls #1','HS-NJ #1','JHS #1','College #2','Girls #2','HS-NJ #2','JHS #2','College #3','HS-NJ #3'], count:11, fee:8800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxajhHRUJtSDNPUnVBMUV0Q0loVDl2RXpXaVZOLDE2ODM5OTMwOQ0200tZiSsXdC?s=db' },
-  { id:'4296869', first:'Mina',    last:'Beshai',    church:'St. Mary & St. George Coptic Orthodox Church',      loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxakRoMDRkZVduOVRBR25RSnhXUHV0WmY1d2piLDE2ODM5OTM4NA02007ZSNPCGC?s=db' },
-  { id:'4321859', first:'Mena',    last:'Raafat',    church:'St. Mary & St. John the Beloved Coptic Orthodox Church', loc:'Bayonne, NJ', teams:['College','JHS','HS-NJ #1','HS-NJ #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxN1FuOXlkdnEwbmNwT3JZWHBHRkV1RFNoZ0pTLDE2ODM5OTM3Nw0200DXWWqvoC?s=db' },
-  { id:'4299238', first:'Mousa',   last:'Youssef',   church:'St. Abraam Coptic Orthodox Church',                 loc:'Long Island, NY', teams:['College','Mens','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxaUdHUFpQVkx0bkFrVGdZODVQVW5STDU4QUVxLDE2ODM5OTMyNw02005sB5o5ge?s=db' },
-  { id:'4330604', first:'Peter',   last:'Mikhaeil',  church:'St. Mary & St. Kyrillos Coptic Orthodox Church',    loc:'Hatfield, PA',    teams:['Mens'], count:1, fee:800,  link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXZTSzBFc1BIZEttaHYzVkN1TjN6RW1na082bTlHLDE2ODM5OTAwMg0200uuCuj6iG?s=db' },
-  { id:'4296103', first:'Phyl',    last:'Khalil',    church:'St. George Coptic Orthodox Church',                 loc:'Philadelphia, PA',teams:['College','HS-NJ','JHS'], count:3, fee:2400, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxYmRhUFEzSDdBNndXNkMxQlJrTzR5am1saVBtLDE2ODM5OTI0MA0200ZKKbQHdy?s=db' },
-  { id:'4295947', first:'Sylvia',  last:'Awadalla',  church:'St. Abanoub & St. Antonious Coptic Orthodox Church', loc:'Bayonne, NJ',    teams:['College','Girls','JHS','Mens','HS-NJ #1','HS-NJ #2'], count:6, fee:4800, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxNjBqVW5jeUxRb3drY1JMUVc0czJXaTIxaWxBLDE2ODM5OTIxMQ0200BELsWyO3?s=db' },
-  { id:'4296867', first:'Steven',  last:'Safa',      church:'St. George Coptic Orthodox Church',                 loc:'Brooklyn, NY',    teams:['College','Girls','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxRjhyN1pkMmp2WGxxVm9sUXQ2WmFxZ2dQQkpxLDE2ODM5OTI2Mg0200auPZLIRo?s=db' },
-  { id:'4295939', first:'Marynet', last:'Shafik',    church:'St. Mark Coptic Orthodox Church',                   loc:'Makkar, NJ',      teams:['Girls','HS-NJ','JHS'], count:3, fee:2400, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VUXRxQkNxQ2l1dk9hVk5YdVI2SVhCMXpING1kejFoLDE2ODM5OTI4NA0200AbhrSBNB?s=db' }
+  { id:'4296464', first:'Sherif',  last:'Fawzy',     church:'St. Mary Coptic Orthodox Church',                   loc:'East Brunswick, NJ', teams:['Mens','College #1','Girls #1','HS-NJ #1','JHS #1','College #2','Girls #2','HS-NJ #2','JHS #2','College #3','HS-NJ #3'], count:11, fee:8800, paid:true },
+  { id:'4296869', first:'Mina',    last:'Beshai',    church:'St. Mary & St. George Coptic Orthodox Church',      loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, paid:true },
+  { id:'4330604', first:'Peter',   last:'Mikhaeil',  church:'St. Mary & St. Kyrillos Coptic Orthodox Church',    loc:'Hatfield, PA',    teams:['Mens'], count:1, fee:800,  paid:true },
+  { id:'4296103', first:'Phyl',    last:'Khalil',    church:'St. George Coptic Orthodox Church',                 loc:'Philadelphia, PA',teams:['College','HS-NJ','JHS'], count:3, fee:2400, paid:true },
+  { id:'4295947', first:'Sylvia',  last:'Awadalla',  church:'St. Abanoub & St. Antonious Coptic Orthodox Church', loc:'Bayonne, NJ',    teams:['College','Girls','JHS','Mens','HS-NJ #1','HS-NJ #2'], count:6, fee:4800, paid:true },
+  { id:'4295939', first:'Marynet', last:'Shafik',    church:'St. Mark Coptic Orthodox Church',                   loc:'Makkar, NJ',      teams:['Girls','HS-NJ','JHS'], count:3, fee:2400, paid:true }
 ];
+
+/* Universal fallback / "Other" payment link — same for every church */
+var UNIVERSAL_OTHER_LINK = 'https://nacopticleague.chmeetings.com/forms/9C77B2615E87023A';
 
 /* ═══════════ HELPERS ═══════════ */
 function fmtMoney(n){ return '$' + n.toLocaleString('en-US'); }
@@ -218,6 +238,7 @@ function showCoord(c){
   }).join('');
 
   var payBlock;
+
   if (c.paid){
     payBlock =
       '<div class="cc-pay">' +
@@ -226,19 +247,64 @@ function showCoord(c){
           '<div class="pn-body">Your church\'s ' + fmtMoney(c.fee) + ' fee has been paid. Thank you!</div>' +
         '</div>' +
       '</div>';
-  } else if (c.link){
-    var btnLabel = 'Pay ' + fmtMoney(c.fee) + ' Now';
-    payBlock =
-      '<div class="cc-pay">' +
-        '<a class="pay-btn" href="' + c.link + '" target="_blank" rel="noopener">' + btnLabel + '<span class="arrow">→</span></a>' +
-      '</div>';
   } else {
+    // Amount actually due (full fee, or remaining outstanding for partial-payment churches)
+    var amountDue = c.paidAmount ? c.outstanding : c.fee;
+
+    // Partial-payment banner (only if applicable)
+    var partialHtml = '';
+    if (c.paidAmount){
+      var paidLabel = c.paidTeam
+        ? '<strong>' + c.paidTeam + '</strong> team paid (' + fmtMoney(c.paidAmount) + ') · <strong>' + fmtMoney(c.outstanding) + '</strong> still due'
+        : '<strong>' + fmtMoney(c.paidAmount) + '</strong> paid · <strong>' + fmtMoney(c.outstanding) + '</strong> still due';
+      partialHtml =
+        '<div class="partial-note">' +
+          '<div class="ptn-title">⚡ Partial Payment Received</div>' +
+          '<div class="ptn-body">' + paidLabel + '</div>' +
+        '</div>';
+    }
+
+    // Processing fee notice (always shown for unpaid)
+    var feeNotice =
+      '<div class="fee-notice">' +
+        '<div class="fn-icon">💳</div>' +
+        '<div class="fn-body"><strong>Processing fee:</strong> Online payments include a 2.9% + $0.30 fee.</div>' +
+      '</div>';
+
+    // Method selector — only render both options if a Stripe link exists.
+    // If no Stripe link, default straight to the universal "Other" link.
+    var methodSelector = '';
+    var initialHref, initialLabel;
+
+    if (c.link){
+      methodSelector =
+        '<div class="pm-label">Choose payment method</div>' +
+        '<div class="pay-methods">' +
+          '<button type="button" class="pm-opt pm-active" data-method="card">' +
+            '<div class="pm-title">💳 Online</div>' +
+            '<div class="pm-sub">Visa · Mastercard · Amex · Apple Pay</div>' +
+          '</button>' +
+          '<button type="button" class="pm-opt" data-method="other">' +
+            '<div class="pm-title">📋 Other Methods</div>' +
+            '<div class="pm-sub">Check, Cash, Zelle, Venmo</div>' +
+          '</button>' +
+        '</div>';
+      initialHref = c.link;
+      initialLabel = 'Pay ' + fmtMoney(amountDue) + ' by Card / Apple Pay';
+    } else {
+      initialHref = UNIVERSAL_OTHER_LINK;
+      initialLabel = 'Select My Form of Payment';
+    }
+
     payBlock =
       '<div class="cc-pay">' +
-        '<div class="contact-note">' +
-          '<div class="cn-title">Please Contact the League</div>' +
-          '<div class="cn-body">A payment link is not available for your church online. Please contact the league directly to arrange payment of your ' + fmtMoney(c.fee) + ' fee.</div>' +
-        '</div>' +
+        partialHtml +
+        feeNotice +
+        methodSelector +
+        '<a class="pay-btn" id="payLink" href="' + initialHref + '" target="_blank" rel="noopener">' +
+          '<span class="pay-label">' + initialLabel + '</span>' +
+          '<span class="arrow">→</span>' +
+        '</a>' +
       '</div>';
   }
 
@@ -261,6 +327,36 @@ function showCoord(c){
       '</div>' +
       payBlock +
     '</div>';
+
+  // Wire up method selector if shown
+  if (!c.paid && c.link){
+    attachMethodHandlers(c);
+  }
+}
+
+function attachMethodHandlers(c){
+  var opts = document.querySelectorAll('.pm-opt');
+  var payLink = document.getElementById('payLink');
+  var payLabel = payLink ? payLink.querySelector('.pay-label') : null;
+  if (!payLink || !payLabel) return;
+  var amountDue = c.paidAmount ? c.outstanding : c.fee;
+
+  for (var i = 0; i < opts.length; i++){
+    (function(opt){
+      opt.addEventListener('click', function(){
+        for (var j = 0; j < opts.length; j++){ opts[j].classList.remove('pm-active'); }
+        opt.classList.add('pm-active');
+        var method = opt.getAttribute('data-method');
+        if (method === 'card'){
+          payLink.href = c.link;
+          payLabel.textContent = 'Pay ' + fmtMoney(amountDue) + ' by Card / Apple Pay';
+        } else {
+          payLink.href = UNIVERSAL_OTHER_LINK;
+          payLabel.textContent = 'Select My Form of Payment';
+        }
+      });
+    })(opts[i]);
+  }
 }
 
 churchSel.addEventListener('change', function(){
