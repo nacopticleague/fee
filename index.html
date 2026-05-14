@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,7 +12,7 @@ body{font-family:Arial,sans-serif;background:#fff;}
 
 /* ── Hero ── */
 .hero{background:#7d1a1a;padding:36px 20px 32px;text-align:center;position:relative;overflow:hidden;}
-.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#c9b5a5,#e07878,#c9b5a5);}
+.hero::after{content:’’;position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#c9b5a5,#e07878,#c9b5a5);}
 .hero h1{font-family:Arial,sans-serif;font-size:1.9rem;color:#e8b4b4;font-weight:800;line-height:1.3;}
 .hero .sub{font-size:.78rem;color:#c98a8a;margin-top:8px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
 
@@ -103,34 +104,37 @@ body{font-family:Arial,sans-serif;background:#fff;}
 .pm-sub{font-size:.66rem;color:#888;margin-top:4px;line-height:1.3;}
 
 @media(max-width:520px){
-  .hero h1{font-size:1.45rem;}
-  .intro{padding:20px 16px 14px;}
-  .intro-title{font-size:1.1rem;}
-  .sel-row{flex-direction:column;}
-  .sg{min-width:100%;}
-  .cc-head{padding:18px 18px 14px;}
-  .cc-name{font-size:1.25rem;}
-  .cc-stats{flex-wrap:wrap;}
-  .cc-stat{flex:1 1 50%;border-right:1px solid #f0e6dd !important;}
-  .cc-stat:nth-child(2){border-right:none !important;}
-  .cc-stat:last-child{flex:1 1 100%;border-right:none !important;border-top:1px solid #f0e6dd;}
-  .cc-teams{padding:14px 18px 16px;}
-  .cc-pay{padding:16px 18px 20px;}
-  .pay-btn{font-size:1.05rem;padding:16px 20px;}
-  .pay-methods{flex-direction:column;}
-  .pm-sub{font-size:.7rem;}
+.hero h1{font-size:1.45rem;}
+.intro{padding:20px 16px 14px;}
+.intro-title{font-size:1.1rem;}
+.sel-row{flex-direction:column;}
+.sg{min-width:100%;}
+.cc-head{padding:18px 18px 14px;}
+.cc-name{font-size:1.25rem;}
+.cc-stats{flex-wrap:wrap;}
+.cc-stat{flex:1 1 50%;border-right:1px solid #f0e6dd !important;}
+.cc-stat:nth-child(2){border-right:none !important;}
+.cc-stat:last-child{flex:1 1 100%;border-right:none !important;border-top:1px solid #f0e6dd;}
+.cc-teams{padding:14px 18px 16px;}
+.cc-pay{padding:16px 18px 20px;}
+.pay-btn{font-size:1.05rem;padding:16px 20px;}
+.pay-methods{flex-direction:column;}
+.pm-sub{font-size:.7rem;}
 }
 </style>
+
 </head>
 <body>
 
 <!-- ═══════════ HERO ═══════════ -->
+
 <div class="hero">
   <h1>2026 League Fee<br>Payment</h1>
   <div class="sub">NA Coptic League · Season 2026</div>
 </div>
 
 <!-- ═══════════ INTRO ═══════════ -->
+
 <div class="intro">
   <div class="intro-title">Pay Your Church's League Fee</div>
   <hr class="intro-hr">
@@ -140,6 +144,7 @@ body{font-family:Arial,sans-serif;background:#fff;}
 <div class="notice">⏰ Payment Deadline: Wednesday, May 13, 2026</div>
 
 <!-- ═══════════ DROPDOWN ═══════════ -->
+
 <div class="selectors">
   <div class="sel-row">
     <div class="sg">
@@ -152,6 +157,7 @@ body{font-family:Arial,sans-serif;background:#fff;}
 </div>
 
 <!-- ═══════════ RESULT ═══════════ -->
+
 <div class="result" id="result">
   <div class="empty">
     <div class="icon">🏀</div>
@@ -173,8 +179,8 @@ var COORDINATORS = [
   { id:'4311392', first:'Jonathan',last:'Gebrail',   nickname:'Jonny', church:'St. Mark Coptic Orthodox Church',                   loc:'West Side, NJ',   teams:['HS-NJ','JHS'], count:2, fee:1600, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxWRFRSRWoyNFRaMUFQZ1lJaHQ5SGJaaHNsZzVmLDE2OTI0NzE5OA0200IS05gA67?s=db' },
   { id:'4345170', first:'Kyrlous', last:'Youssef',   church:'Archangel Michael & St. Mena Coptic Orthodox Church', loc:'Staten Island, NY', teams:['College','Girls','JHS','Mens','HS-NY #1','HS-NY #2'], count:6, fee:4800, paidAmount:800, outstanding:4000, paidTeam:'Mens', link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxNekFaRTJRMWxTZlFkYmhvck1ZS296dzFpaTN2LDE2OTI0Njc1MQ0200ieb1CIZu?s=db' },
   { id:'4321859', first:'Mena',    last:'Raafat',    church:'St. Mary & St. John the Beloved Coptic Orthodox Church', loc:'Bayonne, NJ', teams:['College','JHS','HS-NJ #1','HS-NJ #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxUUUVrUVU5OHRjZ0pkZ2ZlTmVxOGpCMlR4THdMLDE2OTI0NzA5NA02008vbspZTZ?s=db' },
-  { id:'4299238', first:'Mousa',   last:'Youssef',   church:'St. Abraam Coptic Orthodox Church',                 loc:'Long Island, NY', teams:['College','Mens','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmxSMlBMcGtmM1JzQmRBU2hSUTJwR3I5cHZDaUZhLDE2OTI0NzAyMA0200lopSNtKr?s=db' },
-  { id:'4296867', first:'Steven',  last:'Safa',      church:'St. George Coptic Orthodox Church',                 loc:'Brooklyn, NY',    teams:['College','Girls','HS-NY #1','HS-NY #2'], count:4, fee:3200, link:'https://invoice.stripe.com/i/acct_1TRyDjEmd4YZgi7D/live_YWNjdF8xVFJ5RGpFbWQ0WVpnaTdELF9VVmw4U1ZpR3F1MjZoS1VLcFd0dzNsUEt4b0dFdFdMLDE2OTI0NjQ3Ng0200Fy9PmQkU?s=db' },
+  { id:'4299238', first:'Mousa',   last:'Youssef',   church:'St. Abraam Coptic Orthodox Church',                 loc:'Long Island, NY', teams:['College','Mens','HS-NY #1','HS-NY #2'], count:4, fee:3200, paid:true },
+  { id:'4296867', first:'Steven',  last:'Safa',      church:'St. George Coptic Orthodox Church',                 loc:'Brooklyn, NY',    teams:['College','Girls','HS-NY #1','HS-NY #2'], count:4, fee:3200, paid:true },
 
   /* ── PAID ── */
   { id:'4296115', first:'Eddie',   last:'Ishak',     church:'St. Mina Coptic Orthodox Church',                   loc:'Holmdel, NJ',     teams:['College','Girls','HS-NJ','JHS','Mens'], count:5, fee:4000, paid:true },
@@ -377,5 +383,6 @@ window.addEventListener('load', broadcastHeight);
 new MutationObserver(broadcastHeight).observe(document.body, { childList:true, subtree:true });
 setInterval(broadcastHeight, 500);
 </script>
+
 </body>
 </html>
